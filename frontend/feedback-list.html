@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daftar Feedback</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background: #e3f2fd; }
+  </style>
+</head>
+<body>
+  <h1>Daftar Feedback</h1>
+  <table id="feedbackTable">
+    <thead>
+      <tr>
+        <th>Rating</th>
+        <th>Komentar</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <script>
+    fetch('/feedbacks')
+      .then(res => res.json())
+      .then(data => {
+        const tbody = document.querySelector('#feedbackTable tbody');
+        data.forEach(fb => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${fb.rating}</td><td>${fb.comment}</td><td>${fb.anonymous ? 'Anonim' : 'Terbuka'}</td>`;
+          tbody.appendChild(tr);
+        });
+      });
+  </script>
+</body>
+</html>
